@@ -1,1 +1,1 @@
-The Source Code for my projects is accessible through this repository
+The Source Code for my projects is available here!

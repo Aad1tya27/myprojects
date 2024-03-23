@@ -110,10 +110,10 @@ function extractArtistAndSong(link) {
     // const [artist, songWithExtension] = artistAndSongPart.split(' - ');
 
     // // Remove the file extension from the song name
-    // // console.log(song);
-    const [artist, songWithExtension]=decodeURIComponent(link).split("/")[decodeURIComponent(link).split("/").length - 1].split(" - ")
+    console.log(decodeURIComponent(link).split("/")[decodeURIComponent(link).split("/").length - 1].split(" - "));
+    const [artist, songWithExtension] = decodeURIComponent(link).split("/")[decodeURIComponent(link).split("/").length - 1].split(" - ")
     const song = (songWithExtension.split('.'))[0];
-    
+
 
     return { artistname: artist, songname: song };
 }
@@ -242,6 +242,7 @@ async function main() {
         // console.log('hi');
 
         let songtags;
+        let firstsong;
         let div = document.createElement("div")
         div.innerHTML = response;
         let As = div.getElementsByTagName("a");
@@ -263,9 +264,13 @@ async function main() {
                     let div = document.createElement("div")
                     div.innerHTML = songsdata;
                     songtags = div.getElementsByTagName("a");
-
+                    let songno = 0
                     for (const songs of songtags) {
                         if (songs.href.endsWith(".mp3")) {
+                            songno++
+                            if (songno == 1) {
+                                firstsong = songs
+                            }
                             const { artistname, songname } = extractArtistAndSong(songs.href);
                             let photo = encodeURIComponent(songname)
                             photo = playlist.href + photo + ".png"
@@ -304,8 +309,13 @@ async function main() {
                     let div = document.createElement("div")
                     div.innerHTML = songsdata;
                     songtags = div.getElementsByTagName("a");
+                    let songno = 0
                     for (const songs of songtags) {
                         if (songs.href.endsWith(".mp3")) {
+                            songno++
+                            if (songno == 1) {
+                                firstsong = songs
+                            }
                             const { artistname, songname } = extractArtistAndSong(songs.href);
                             let photo = encodeURIComponent(songname)
                             photo = playlist.href + photo + ".png"
@@ -321,40 +331,91 @@ async function main() {
             }
         }
 
-        // console.log(songtags);
+        if (document.body.offsetWidth < 900) {
+            console.log(firstsong);
+            currentSongtags=songtags
+            const { artistname, songname } = extractArtistAndSong(firstsong.href);
+            if (currentSong) {
+                currentSong.pause()
+            }
+            currentSong = document.createElement("audio")
+            currentSong.src = firstsong.href
+            currentSong.play()
 
-        // const { artistname, songname } = extractArtistAndSong(songtags[1].href);
-        // console.log(artistname + " " + songname);
-        // if (currentSong) {
-        //     currentSong.pause()
-        // }
-        // currentSong = document.createElement("audio")
-        // currentSong.src = songtags[1].href
-        // currentSong.play()
-        // document.body.getElementsByClassName("playandpause")[0].getElementsByTagName("img")[0].src = "http://127.0.0.1:3000/pause.svg"
-        // songInfo(songname, artistname, "playlisticon.png")
-        // currentSongtags = songtags
+            let photo = firstsong.href.replace(encodeURI(artistname + " - " + songname + ".mp3"), "")
+
+            photo = photo + encodeURIComponent(songname) + ".png"
 
 
-        document.body.querySelectorAll(".songs-hv").forEach((element) => {
-            element.addEventListener("mouseenter", () => {
-                document.body.style.cssText = "cursor: pointer;"
-                let playb = document.createElement("div")
-                playb.classList.add("playbutton")
-                playb.innerHTML = `<img src="play.svg" alt="" >`
-                element.insertAdjacentElement("afterbegin", playb)
-                // console.log(selplay);
+            document.body.getElementsByClassName("playandpause")[0].getElementsByTagName("img")[0].src = "pause.svg"
+            songInfo(songname, artistname, photo)
+        }
 
-                document.body.getElementsByClassName("playbutton")[0].addEventListener("click", () => {
-                    // console.log(element);
+
+        if (document.body.offsetWidth > 900) {
+            document.body.querySelectorAll(".songs-hv").forEach((element) => {
+                element.addEventListener("mouseenter", () => {
+                    document.body.style.cssText = "cursor: pointer;"
+                    let playb = document.createElement("div")
+                    playb.classList.add("playbutton")
+                    playb.innerHTML = `<img src="play.svg" alt="" >`
+                    element.insertAdjacentElement("afterbegin", playb)
+                    // console.log(selplay);
+
+                    document.body.getElementsByClassName("playbutton")[0].addEventListener("click", () => {
+                        // console.log(element);
+                        currentSongtags = songtags
+                        for (const songs of songtags) {
+                            if (!songs.href.endsWith(".mp3")) {
+                                continue
+                            }
+                            const { artistname, songname } = extractArtistAndSong(songs.href);
+                            // console.log(songs.href);
+
+                            if (element.getElementsByClassName("playlistname")[0].innerText == songname && artistname == element.getElementsByClassName("user")[0].innerText) {
+                                console.log(artistname + " " + songname);
+                                if (currentSong) {
+                                    currentSong.pause()
+                                }
+                                currentSong = document.createElement("audio")
+                                currentSong.src = songs.href
+                                currentSong.play()
+                                // console.log(encodeURI(artistname+" - "+songname+".mp3"));
+
+                                let photo = songs.href.replace(encodeURI(artistname + " - " + songname + ".mp3"), "")
+                                console.log(songs.href, encodeURI(artistname + " - " + songname + ".mp3"));
+                                console.log(photo);
+                                photo = photo + encodeURIComponent(songname) + ".png"
+                                // photo = encodeURI(photo)
+
+
+                                document.body.getElementsByClassName("playandpause")[0].getElementsByTagName("img")[0].src = "pause.svg"
+                                songInfo(songname, artistname, photo)
+                            }
+                        }
+                    })
+                })
+
+                element.addEventListener("mouseleave", () => {
+                    document.body.style.cssText = "cursor: default;"
+                    let playb = element.querySelector(".playbutton")
+                    playb.remove()
+                })
+            })
+
+        }
+        else {
+            document.body.querySelectorAll(".songs-hv").forEach((element) => {
+                element.addEventListener("click", () => {
+                    console.log(element.style.cssText);
+
                     currentSongtags = songtags
                     for (const songs of songtags) {
                         if (!songs.href.endsWith(".mp3")) {
                             continue
                         }
                         const { artistname, songname } = extractArtistAndSong(songs.href);
-                        // console.log(songs.href);
-
+           
                         if (element.getElementsByClassName("playlistname")[0].innerText == songname && artistname == element.getElementsByClassName("user")[0].innerText) {
                             console.log(artistname + " " + songname);
                             if (currentSong) {
@@ -363,30 +424,28 @@ async function main() {
                             currentSong = document.createElement("audio")
                             currentSong.src = songs.href
                             currentSong.play()
-                            // console.log(encodeURI(artistname+" - "+songname+".mp3"));
-
+     
                             let photo = songs.href.replace(encodeURI(artistname + " - " + songname + ".mp3"), "")
-                            console.log(songs.href,encodeURI(artistname + " - " + songname + ".mp3"));
+                            console.log(songs.href, encodeURI(artistname + " - " + songname + ".mp3"));
                             console.log(photo);
                             photo = photo + encodeURIComponent(songname) + ".png"
-                            // photo = encodeURI(photo)
-                            
-
+             
                             document.body.getElementsByClassName("playandpause")[0].getElementsByTagName("img")[0].src = "pause.svg"
                             songInfo(songname, artistname, photo)
                         }
                     }
+    
+                })
+
+                element.addEventListener("mouseleave", () => {
+                    document.body.style.cssText = "cursor: default;"
+                    let playb = element.querySelector(".playbutton")
+                    playb.remove()
                 })
             })
-
-            element.addEventListener("mouseleave", () => {
-                document.body.style.cssText = "cursor: default;"
-                let playb = element.querySelector(".playbutton")
-                playb.remove()
-            })
-        })
+        }
     }
-    async function madeforu(    ) {
+    async function madeforu() {
         let data = await fetch("Made For You/")
         let response = await data.text();
         let div = document.createElement("div")

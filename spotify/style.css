@@ -1,3 +1,5 @@
+
+
 @media screen and (min-width: 900px) {
 
 
@@ -599,11 +601,17 @@
     .player .rectangles:hover+.circle {
         visibility: visible;
     }
+    /* .player .circle:hover{
+        visibility: visible;
+    } */
+    /* .player .circle:hover .green-rectangle {
+        background-color: green;
+    } */
 
 
     .player .seekbar .rectangle {
         width: 40vw;
-        height: 3px;
+        height: 4px;
         background-color: rgba(255, 255, 255, 0.329);
         border-radius: 10px;
         cursor: pointer;
@@ -611,13 +619,13 @@
 
     .player .seekbar .green-rectangle {
         width: 0px;
-        height: 3px;
+        height: 4px;
         background-color: rgb(202, 202, 202);
         border-radius: 10px;
         cursor: pointer;
         position: relative;
         z-index: 1;
-        top: -3px;
+        top: -4px;
     }
 
     .player .currenttime {
@@ -893,8 +901,7 @@
 
 
 
-    .library .card .playbutton {
-        /* justify-self: flex-end; */
+    /* .library .card .playbutton {
         position: absolute;
         right: 10px;
         width: 30px;
@@ -911,11 +918,7 @@
     .library .card .playbutton img {
         width: 20px;
         margin: auto;
-
-        /* background-color: green;
-    border-radius: 100px; */
-        /* justify-self: flex-end; */
-    }
+    } */
 
 
     .library .card:hover {
@@ -1430,7 +1433,7 @@
 
         .player .seekbar .rectangle {
             width: 40vw;
-            height: 3px;
+            height: 4px;
             background-color: rgba(255, 255, 255, 0.329);
             border-radius: 10px;
             cursor: pointer;
@@ -1438,13 +1441,13 @@
 
         .player .seekbar .green-rectangle {
             width: 0px;
-            height: 3px;
+            height: 4px;
             background-color: rgb(202, 202, 202);
             border-radius: 10px;
             cursor: pointer;
             position: relative;
             z-index: 1;
-            top: -3px;
+            top: -4px;
         }
 
 
@@ -1519,14 +1522,14 @@
         }
 
         .player {
-            grid-row: 17/19;
+            grid-row: 16/19;
             grid-column: 1/5;
             background-color: black;
             margin: 0px;
-            height: 150px;
+            /* height: 150px; */
             width: 100%;
-            position: relative;
-            background-image: linear-gradient(rgba(38, 38, 38, 0.589), rgba(25, 25, 25, 0.551), rgba(80, 80, 80, 0.274));
+            position: fixed;
+            /* background-image: linear-gradient(rgba(38, 38, 38, 0.589), rgba(25, 25, 25, 0.551), rgba(80, 80, 80, 0.274)); */
         }
 
         .player .seekbar .circle {
@@ -1543,7 +1546,7 @@
 
         .player .seekbar .rectangle {
             width: 60vw;
-            height: 3px;
+            height: 4px;
             background-color: rgba(255, 255, 255, 0.329);
             border-radius: 10px;
             cursor: pointer;
@@ -1551,15 +1554,15 @@
 
         .player .seekbar .green-rectangle {
             width: 0px;
-            height: 3px;
+            height: 4px;
             background-color: rgb(202, 202, 202);
             border-radius: 10px;
             cursor: pointer;
             position: relative;
             z-index: 1;
-            top: -3px;
+            top: -4px;
         }
-
+        
 
         .player .songcontrols {
             display: flex;
@@ -1576,6 +1579,8 @@
         }
         .mainpage{
             width: 98%;
+            grid-row: 1/16;
+
         }
 
         .mainpage .topplaylists .playlist{
@@ -1587,6 +1592,36 @@
             margin-right: 10px;
             border-radius: 5px;
 
+        }
+
+        .player .songbuttons img{
+            width: 20px;
+        }
+        
+        .player .playandpause{
+            width: 30px;
+            height: 30px;
+        }
+        .player .sides .volume img{
+            width: 20px;
+        }
+
+        .library{
+            grid-row: 4/17;
+        }
+        .back{
+            grid-row: 1/17;
+        }
+        .player .sides .volume{
+            position: absolute;
+            right: 0px;
+            top: 20px;
+        }
+        .player{
+            /* border: 2px solid red; */
+            position: fixed;
+            bottom: 60px;
+            z-index: 2;
         }
 
     }
@@ -1675,14 +1710,14 @@
         }
 
         .player {
-            grid-row: 17/19;
+            grid-row: 16/19;
             grid-column: 1/5;
             background-color: black;
             margin: 0px;
-            height: 150px;
+            /* height: 150px; */
             position: fixed;
             width: 98%;
-            background-image: linear-gradient(rgba(38, 38, 38, 0.589), rgba(25, 25, 25, 0.551), rgba(80, 80, 80, 0.274));
+            /* background-image: linear-gradient(rgba(38, 38, 38, 0.589), rgba(25, 25, 25, 0.551), rgba(80, 80, 80, 0.274)); */
         }
 
         /* .player .volume{
@@ -1728,7 +1763,7 @@
 
         .player .seekbar .rectangle {
             width: 60vw;
-            height: 3px;
+            height: 4px;
             background-color: rgba(255, 255, 255, 0.329);
             border-radius: 10px;
             cursor: pointer;
@@ -1736,13 +1771,13 @@
 
         .player .seekbar .green-rectangle {
             width: 0px;
-            height: 3px;
+            height: 4px;
             background-color: rgb(202, 202, 202);
             border-radius: 10px;
             cursor: pointer;
             position: relative;
             z-index: 1;
-            top: -3px;
+            top: -4px;
         }
 
 
@@ -1762,11 +1797,40 @@
 
         .mainpage{
             width: 98%;
+            grid-row: 1/16;
         }
 
         .gridelem{
             margin: 1%;
         }
+
+
+        .player .songbuttons img{
+            width: 20px;
+        }
+        
+        .player .playandpause{
+            width: 30px;
+            height: 30px;
+        }
+        .player .sides .volume img{
+            width: 20px;
+        }
+
+        .library{
+            grid-row: 4/16;
+        }
+
+        .back{
+            grid-row: 1/17;
+        }
+        .player{
+            /* border: 2px solid red; */
+            position: fixed;
+            bottom: 60px;
+            z-index: 2;
+        }
+
     }
 
 
@@ -1777,5 +1841,6 @@
 
 
 
-
 }
+
+

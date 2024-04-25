@@ -1,0 +1,14 @@
+.details>div{
+    border-radius: 10px;
+    box-shadow: 0.5px 1px 2px 0px rgba(0, 0, 0, 0.188);
+
+}
+
+
+.edit button{
+    box-shadow: 0.5px 1px 2px 0px rgba(0, 0, 0, 0.462);
+}
+
+span{
+    text-decoration-line: underline;
+}

@@ -1,0 +1,24 @@
+.balance >div{
+    border-radius: 10px;
+    width: 30vw;
+    height: 10vh;
+    background-color: rgb(206, 245, 234);
+    justify-content: center;
+    box-shadow: 0.5px 1px 2px 0px rgba(0, 0, 0, 0.188);
+
+    /* box-shadow: 0px 0px 2px 0px #0b8d70; */
+}
+
+.targets>div>div{
+   
+    border-radius: 8px;
+    box-shadow: 0.5px 1px 2px 0px rgba(0, 0, 0, 0.188);
+}
+
+.targets .heading{
+    background-color:teal;
+    color: white;
+    /* position: unset; */
+    /* margin-bottom: 20px; */
+    /* margin-top: 5px; */
+}

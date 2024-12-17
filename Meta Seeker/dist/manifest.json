@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "Meta Seeker",
+  "version": "1.0.0",
+  "description": "Searches the selected text on Meta AI (using Hugging Face API)",
+  "host_permissions": [
+    "https://*/*"
+  ],
+  "action": {
+    "default_popup": "index.html"
+  },
+  "background": {
+    "service_worker": "service-worker-loader.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "assets/main.tsx-loader-B_hWDaeJ.js"
+      ],
+      "matches": [
+        "https://*/*"
+      ],
+      "run_at": "document_end",
+      "css": [
+        "assets/main-DiLg2XeL.css"
+      ]
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self';"
+  },
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "https://*/*"
+      ],
+      "resources": [
+        "assets/store-B21A1zVX.js",
+        "assets/main.tsx-DrtOdrg6.js"
+      ],
+      "use_dynamic_url": false
+    }
+  ]
+}
